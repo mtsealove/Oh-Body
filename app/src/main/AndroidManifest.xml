@@ -9,6 +9,10 @@
             android:roundIcon="@drawable/oh_body_icon"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".GraphActivity">
+        </activity>
+        <activity android:name=".SearchFoodActivity">
+        </activity>
         <activity android:name=".MealActivity">
         </activity>
         <activity android:name=".InformationActivity">

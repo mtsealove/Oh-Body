@@ -7,9 +7,10 @@ import android.os.Handler;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.mtsealove.github.ohbody.Database.PersonalDbHelper;
 
 public class SplashActivity extends AppCompatActivity {
-    DbHelper dbHelper;
+    PersonalDbHelper personalDbHelper;
     SQLiteDatabase database;
     Cursor cursor;
 
@@ -17,8 +18,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        dbHelper = new DbHelper(this, DbHelper.TableName, null, 1);
-        database=dbHelper.getReadableDatabase();
+        personalDbHelper = new PersonalDbHelper(this, PersonalDbHelper.BodyTable, null, 1);
+        database= personalDbHelper.getReadableDatabase();
 
 
         Handler handler = new Handler();
@@ -31,7 +32,7 @@ public class SplashActivity extends AppCompatActivity {
 
     //처음 접속했는지 확인
     private boolean IsFirst() {
-        String query="select count(*) from "+DbHelper.TableName;
+        String query="select count(*) from "+ PersonalDbHelper.BodyTable;
         cursor=database.rawQuery(query, null);
         if(cursor!=null){
             cursor.moveToNext();

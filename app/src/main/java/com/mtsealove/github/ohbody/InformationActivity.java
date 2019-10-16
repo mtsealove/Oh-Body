@@ -9,19 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.mtsealove.github.ohbody.Database.PersonalDbHelper;
 
 public class InformationActivity extends AppCompatActivity {
     EditText HeightEt, WeightEt, AgeEt, DiseaseEt;
     Button GenderBtn, ConfirmBtn;
+    TextView titleTv;
     private float Height, Weight;
     private int Age;
     private char Gender = 'e';
     private String Disease;
-    DbHelper dbHelper;
+    PersonalDbHelper personalDbHelper;
     SQLiteDatabase database;
     private Cursor cursor;
     boolean first;
@@ -37,6 +40,7 @@ public class InformationActivity extends AppCompatActivity {
         DiseaseEt = findViewById(R.id.diseaseEt);
         GenderBtn = findViewById(R.id.genderBtn);
         ConfirmBtn = findViewById(R.id.confirmBtn);
+        titleTv=findViewById(R.id.titleTv);
 
         GenderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +55,7 @@ public class InformationActivity extends AppCompatActivity {
             }
         });
 
-        dbHelper = new DbHelper(this, DbHelper.TableName, null, 1);
+        personalDbHelper = new PersonalDbHelper(this, PersonalDbHelper.BodyTable, null, 1);
         ReadData();
     }
 
@@ -112,17 +116,17 @@ public class InformationActivity extends AppCompatActivity {
         Weight = Float.parseFloat(weight);
         Age = Integer.parseInt(age);
         Disease = DiseaseEt.getText().toString();
-        database = dbHelper.getWritableDatabase();
+        database = personalDbHelper.getWritableDatabase();
         //처음이면 데이터 생성
         if(first){
-            dbHelper.InsertData(database, Height, Weight, Age, Gender, Disease);
+            personalDbHelper.InsertBodyData(database, Height, Weight, Age, Gender, Disease);
             Toast.makeText(this, "정보가 저장되었습니다", Toast.LENGTH_SHORT).show();
         }
 
         //아니면 업데이트
         else{
-            dbHelper.UpdateData(database, Height, Weight, Age, Gender, Disease);
-            Toast.makeText(this, "정보가 변경도었습니다", Toast.LENGTH_SHORT).show();
+            personalDbHelper.UpdateBodyData(database, Height, Weight, Age, Gender, Disease);
+            Toast.makeText(this, "정보가 변경되었습니다", Toast.LENGTH_SHORT).show();
         }
         Intent intent=new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -131,11 +135,12 @@ public class InformationActivity extends AppCompatActivity {
 
     //데이터가 있다면 읽어오기
     private void ReadData() {
-        database=dbHelper.getReadableDatabase();
-        String Query="select * from "+DbHelper.TableName;
+        database= personalDbHelper.getReadableDatabase();
+        String Query="select * from "+ PersonalDbHelper.BodyTable;
         cursor=database.rawQuery(Query, null);
         if(cursor!=null) {
             if (cursor.getCount() != 0) {
+                titleTv.setText("신체정보 수정");
                 first=false;
                 cursor.moveToNext();
                 Height = cursor.getFloat(0);

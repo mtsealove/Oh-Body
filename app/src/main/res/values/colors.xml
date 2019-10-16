@@ -9,4 +9,5 @@
     <color name="ios_blue">#007AFF</color>
     <color name="ios_pink">#FF2D55</color>
     <color name="black">#000000</color>
+    <color name="hint_color_white">#E8E8E8</color>
 </resources>

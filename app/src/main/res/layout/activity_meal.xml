@@ -11,7 +11,7 @@
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:layout_marginTop="20dp"
-              android:text="신체정보 입력"
+              android:text="오늘의 식사"
               android:textSize="24sp"
               android:textColor="@color/white"
               android:textStyle="bold"/>
@@ -23,8 +23,31 @@
               android:textColor="@color/white"
               android:layout_marginTop="10dp"/>
 
-    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical">
 
+            <com.mtsealove.github.ohbody.View.MealView
+                    android:id="@+id/mealBreakfast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+            />
+
+            <com.mtsealove.github.ohbody.View.MealView
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/mealLunch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+            />
+
+            <com.mtsealove.github.ohbody.View.MealView
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/mealDinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+            />
+        </LinearLayout>
     </ScrollView>
 
 </LinearLayout>

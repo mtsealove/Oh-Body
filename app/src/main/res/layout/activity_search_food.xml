@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@drawable/default_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SearchFoodActivity">
+
+    <!--검색 레이아웃-->
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:id="@+id/searchLayout"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginHorizontal="20dp">
+
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:background="@drawable/meal_background"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@id/confirmBtn">
+
+            <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                       android:layout_marginLeft="10dp"
+                       android:layout_centerVertical="true"
+                       android:id="@+id/searchIv"
+                       android:src="@drawable/search"/>
+            <EditText android:layout_width="match_parent" android:layout_height="40dp"
+                      android:layout_marginLeft="5dp"
+                      android:id="@+id/searchEt"
+                      android:layout_toRightOf="@id/searchIv"
+                      android:layout_centerVertical="true"
+                      android:background="#00000000"
+                      android:textColor="@color/white"
+                      android:hint="메뉴를 검색하세요"
+                      android:textColorHint="@color/hint_color_white"/>
+        </RelativeLayout>
+
+        <Button android:layout_width="wrap_content" android:layout_height="40dp"
+                android:background="@drawable/btn_lime"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/confirmBtn"
+                android:text="완료"
+                android:textSize="16sp"
+                android:textColor="@color/ios_blue"/>
+    </RelativeLayout>
+    <ListView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:visibility="gone"
+              android:layout_marginTop="10dp"
+              android:background="@color/white"
+              android:elevation="4dp"
+              android:divider="@drawable/dashline"
+              android:dividerHeight="1.5dp"
+              android:id="@+id/suggestLv"
+              android:layout_marginHorizontal="20dp"
+              android:layout_below="@id/searchLayout"/>
+
+    <!--하단에 먹은 메뉴를 표시할 레이아웃-->
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+                android:layout_below="@id/searchLayout"
+                android:layout_marginHorizontal="20dp"
+                android:id="@+id/contentLayout">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:id="@+id/foodsLayout"
+                      android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

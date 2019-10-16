@@ -47,39 +47,39 @@
                     android:gravity="center"
                     android:src="@drawable/human_body"/>
 
-                <!--오늘의 팁 레이아웃-->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                              android:orientation="vertical"
-                              android:gravity="top"
-                              android:background="@drawable/background_slide_panel">
+            <!--오늘의 팁 레이아웃-->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                          android:orientation="vertical"
+                          android:gravity="top"
+                          android:background="@drawable/background_slide_panel">
 
-                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                               android:layout_marginTop="10dp"
-                               android:layout_gravity="center_horizontal"
-                               android:src="@drawable/icon_slider"/>
+                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                           android:layout_marginTop="10dp"
+                           android:layout_gravity="center_horizontal"
+                           android:src="@drawable/icon_slider"/>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:layout_margin="10dp"
-                              android:text="오늘의 Tip"
-                              android:textSize="18sp"
-                              android:textColor="@color/lime"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:layout_margin="10dp"
+                          android:text="오늘의 Tip"
+                          android:textSize="18sp"
+                          android:textColor="@color/lime"/>
 
-                    <!--짧은 문구-->
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:id="@+id/shortTV"
-                              android:layout_marginHorizontal="10dp"
-                              android:textSize="16sp"
-                              android:textColor="@color/white"
-                              android:text="오늘은 맛있는 걸 많이 드세요."/>
+                <!--짧은 문구-->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/shortTV"
+                          android:layout_marginHorizontal="10dp"
+                          android:textSize="16sp"
+                          android:textColor="@color/white"
+                          android:text="오늘은 맛있는 걸 많이 드세요."/>
 
-                    <!--긴 문구-->
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:visibility="gone"
-                              android:id="@+id/longTV"
-                              android:layout_marginHorizontal="10dp"
-                              android:textSize="16sp"
-                              android:textColor="@color/white"
-                              android:text="오늘을 맛있는 걸 많이 드세요.\n맛있는 걸 많이 먹으면 기부니가 좋아져요.\n건강따위는 개나 줍시다." />
+                <!--긴 문구-->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:visibility="gone"
+                          android:id="@+id/longTV"
+                          android:layout_marginHorizontal="10dp"
+                          android:textSize="16sp"
+                          android:textColor="@color/white"
+                          android:text="오늘을 맛있는 걸 많이 드세요.\n맛있는 걸 많이 먹으면 기부니가 좋아져요.\n건강따위는 개나 줍시다."/>
             </LinearLayout>
         </com.sothree.slidinguppanel.SlidingUpPanelLayout>
     </RelativeLayout>
@@ -118,6 +118,7 @@
         </RelativeLayout>
         <!--메뉴 리스트-->
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:id="@+id/informationLayout"
                       android:layout_marginTop="30dp"
                       android:gravity="center_vertical"
                       android:paddingHorizontal="20dp"
@@ -132,6 +133,7 @@
         </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:id="@+id/graphLayout"
                       android:layout_marginTop="30dp"
                       android:gravity="center_vertical"
                       android:paddingHorizontal="20dp"
@@ -146,6 +148,7 @@
         </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:id="@+id/mealLayout"
                       android:layout_marginTop="30dp"
                       android:gravity="center_vertical"
                       android:paddingHorizontal="20dp"
