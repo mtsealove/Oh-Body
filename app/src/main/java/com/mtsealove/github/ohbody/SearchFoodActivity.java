@@ -81,6 +81,7 @@ public class SearchFoodActivity extends AppCompatActivity {
     private void Suggest(CharSequence nameCS) {
         final ArrayList<String> foodList = new ArrayList<>();
         final ArrayList<Integer> servingList = new ArrayList<>();
+        final ArrayList<Integer> food_cdList=new ArrayList<>();
         String name = nameCS.toString();
         String query = "select desc_kor, food_cd, serving_wt from data where desc_kor like '" + name + "%'";
         //중복 제거
@@ -90,6 +91,7 @@ public class SearchFoodActivity extends AppCompatActivity {
         cursor = database.rawQuery(query, null);
         while (cursor.moveToNext()) {
             foodList.add(cursor.getString(0));
+            food_cdList.add(cursor.getInt(1));
             servingList.add(cursor.getInt(2));
         }
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, foodList);
@@ -99,7 +101,7 @@ public class SearchFoodActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 SearchEt.setText("");
-                FoodSelectView foodSelectView = new FoodSelectView(SearchFoodActivity.this, foodList.get(i), servingList.get(i), "g");
+                FoodSelectView foodSelectView = new FoodSelectView(SearchFoodActivity.this, foodList.get(i), servingList.get(i), food_cdList.get(i));
                 foodSelectViews.add(foodSelectView);
                 SuggestLv.setVisibility(View.GONE);
                 foodsLayout.addView(foodSelectView);
@@ -146,14 +148,12 @@ public class SearchFoodActivity extends AppCompatActivity {
         PersonalDbHelper dbHelper=new PersonalDbHelper(this, PersonalDbHelper.MealTable, null, 1);
         SQLiteDatabase database=dbHelper.getWritableDatabase();
         DateF dateF=new DateF();
-        String foods="";
-        String Serving_wt="";
-        //;로 데이터 분할해서 저장
-        for(FoodSelectView foodSelectView: foodSelectViews) {
-            foods+=foodSelectView.getFoodName()+";";
-            Serving_wt+=foodSelectView.getAmount()+";";
+        //데이터를 모두 지우고
+        dbHelper.CleanMeal(database, dateF.getDate(), Meal);
+        //새 데이터를 다시 삽입
+        for(FoodSelectView foodSelectView:foodSelectViews) {
+            dbHelper.InsertMealData(database, dateF.getDate(), Meal, foodSelectView.getFoodName(), foodSelectView.getAmount(), foodSelectView.getFood_cd());
         }
-        dbHelper.InsertMealData(database, dateF.getDate(),Meal, foods, Serving_wt);
     }
 
     //기존 생성된 데이터 추가
@@ -161,19 +161,16 @@ public class SearchFoodActivity extends AppCompatActivity {
         PersonalDbHelper dbHelper=new PersonalDbHelper(this, PersonalDbHelper.MealTable, null, 1);
         SQLiteDatabase database=dbHelper.getReadableDatabase();
         DateF dateF=new DateF();
-        String query="select Foods, Serving_wt from "+PersonalDbHelper.MealTable+
+        String query="select desc_kor, serving_wt, food_cd from "+PersonalDbHelper.MealTable+
                 " where Date='"+dateF.getDate()+"' and "+
                 "Meal="+Meal;
         Cursor cursor=database.rawQuery(query, null);
         if(cursor!=null) {
             if(cursor.getCount()!=0){
-                cursor.moveToNext();
-                String[] foods=cursor.getString(0).split(";");
-                String[] Serving_Wt=cursor.getString(1).split(";");
-                for(int i=0; i<foods.length; i++) {
-                    FoodSelectView foodSelectView=new FoodSelectView(this, foods[i], Integer.parseInt(Serving_Wt[i]), "g");
-                    foodSelectViews.add(foodSelectView);
-                    foodsLayout.addView(foodSelectView);
+                while(cursor.moveToNext()){
+                       FoodSelectView foodSelectView=new FoodSelectView(this, cursor.getString(0), cursor.getInt(1), cursor.getInt(2));
+                       foodSelectViews.add(foodSelectView);
+                       foodsLayout.addView(foodSelectView);
                 }
             }
         }

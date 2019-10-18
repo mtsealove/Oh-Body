@@ -51,61 +51,36 @@ public class MealActivity extends AppCompatActivity {
         SQLiteDatabase database=dbHelper.getReadableDatabase();
         DateF dateF=new DateF();
         Cursor cursor;
-        //아침 조회 쿼리
-        String query1="select Foods, Serving_wt from "+PersonalDbHelper.MealTable+
-                " where Date='"+dateF.getDate()+"' and "+
-                "Meal="+MealView.RequestBreakfast;
-        Log.e("query", query1);
-        cursor=database.rawQuery(query1, null);
-        if(cursor!=null) {
-            if(cursor.getCount()!=0){
-                String content="";
-                cursor.moveToNext();
-                String[] foods=cursor.getString(0).split(";");
-                String[] Serving_wts=cursor.getString(1).split(";");
-                for(int i=0; i<foods.length; i++) {
-                    content+=foods[i]+" "+Serving_wts[i]+"\n";
-                }
-                content=content.substring(0, content.length()-1);
-                mealBreakfast.setContent(content);
+        //데이터를 조회하여 배치
+
+        for(int i=0; i<3; i++) {
+            int tmpAsk;
+            MealView mealView;
+            switch (i) {
+                case 0:tmpAsk=MealView.RequestBreakfast;
+                mealView=mealBreakfast;
+                break;
+                case 1: tmpAsk=MealView.RequestLunch;
+                mealView=mealLunch;
+                break;
+                default: tmpAsk=MealView.RequestDinner;
+                mealView=mealDinner;
             }
-        }
-        cursor=null;
-        //점심 조회
-        String query2="select Foods, Serving_wt from "+PersonalDbHelper.MealTable+
-                " where Date='"+dateF.getDate()+"' and "+
-                "Meal="+MealView.RequestLunch;
-        cursor=database.rawQuery(query2, null);
-        if(cursor!=null) {
-            if(cursor.getCount()!=0){
-                String content="";
-                cursor.moveToNext();
-                String[] foods=cursor.getString(0).split(";");
-                String[] Serving_wts=cursor.getString(1).split(";");
-                for(int i=0; i<foods.length; i++) {
-                    content+=foods[i]+" "+Serving_wts[i]+"\n";
+
+            String query1 = "select desc_kor, serving_wt from " + PersonalDbHelper.MealTable +
+                    " where Date='" + dateF.getDate() + "' and " +
+                    "Meal=" + tmpAsk;
+            Log.e("query", query1);
+            cursor = database.rawQuery(query1, null);
+            if (cursor != null) {
+                if (cursor.getCount() != 0) {
+                    String result = "";
+                    while (cursor.moveToNext()) {
+                        result += cursor.getString(0) + " " + cursor.getInt(1) + "g\n";
+                    }
+                    result = result.substring(0, result.length() - 1);
+                    mealView.setContent(result);
                 }
-                content=content.substring(0, content.length()-1);
-                mealLunch.setContent(content);
-            }
-        }
-        cursor=null;
-        //저녁 조회
-        String query3="select Foods, Serving_wt from "+PersonalDbHelper.MealTable+
-                " where Date='"+dateF.getDate()+"' and "+
-                "Meal="+MealView.RequestDinner;
-        cursor=database.rawQuery(query3, null);
-        if(cursor!=null) {
-            if(cursor.getCount()!=0){
-                String content="";
-                cursor.moveToNext();
-                String[] foods=cursor.getString(0).split(";");
-                String[] Serving_wts=cursor.getString(1).split(";");
-                for(int i=0; i<foods.length; i++) {
-                    content+=foods[i]+" "+Serving_wts[i]+"\n";
-                }
-                content=content.substring(0, content.length()-1);
-                mealDinner.setContent(content);
             }
         }
     }

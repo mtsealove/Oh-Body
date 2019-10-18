@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--SeekBar 배경1인데요. 테스트해보니 없어도 상관없더라구요 ㅎㅎ-->
+    <item android:id="@android:id/background">
+        <shape android:shape="line">    <!--선 : 길이6dp -->
+            <stroke android:width="4dp" android:color="@color/white" />
+        </shape>
+    </item>
+
+    <!-- SeekBar 배경2입니다.-->
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape android:shape="line">
+                <stroke android:width="4dp" android:color="@color/white" />
+            </shape>
+        </clip>
+    </item>
+
+    <!-- SeekBar 프로그래스입니다. -->
+    <item android:id="@android:id/progress" >
+        <clip>
+            <shape android:shape="line">
+                <stroke android:width="4dp" android:color="@color/lime" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

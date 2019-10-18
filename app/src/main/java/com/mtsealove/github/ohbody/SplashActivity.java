@@ -3,11 +3,15 @@ package com.mtsealove.github.ohbody;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.util.Log;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.mtsealove.github.ohbody.Database.PersonalDbHelper;
+import com.mtsealove.github.ohbody.Services.WalkService;
 
 public class SplashActivity extends AppCompatActivity {
     PersonalDbHelper personalDbHelper;
@@ -21,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         personalDbHelper = new PersonalDbHelper(this, PersonalDbHelper.BodyTable, null, 1);
         database= personalDbHelper.getReadableDatabase();
 
-
+        StartService();
         Handler handler = new Handler();
         if(IsFirst()){
             handler.postDelayed(InformationRun, 700);
@@ -29,6 +33,7 @@ public class SplashActivity extends AppCompatActivity {
             handler.postDelayed(MainRun, 700);
         }
     }
+
 
     //처음 접속했는지 확인
     private boolean IsFirst() {
@@ -63,4 +68,27 @@ public class SplashActivity extends AppCompatActivity {
             finish();
         }
     };
+
+    private void StartService() {
+        PowerManager pm = (PowerManager) getApplicationContext().getSystemService(POWER_SERVICE);
+        boolean isWhiteListing = false;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            isWhiteListing = pm.isIgnoringBatteryOptimizations(getApplicationContext().getPackageName());
+        }
+        if (!isWhiteListing) {
+            Intent intent = new Intent();
+            intent.setAction(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+            intent.setData(Uri.parse("package:" + getApplicationContext().getPackageName()));
+            startActivity(intent);
+        }
+
+        Intent serviceIntent;
+        if (WalkService.serviceIntent==null) {
+            serviceIntent = new Intent(this, WalkService.class);
+            startService(serviceIntent);
+        } else {
+            serviceIntent = WalkService.serviceIntent;//getInstance().getApplication();
+            Toast.makeText(getApplicationContext(), "already", Toast.LENGTH_LONG).show();
+        }
+    }
 }

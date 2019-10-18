@@ -25,63 +25,54 @@
                     android:background="@drawable/icon_meal"/>
         </RelativeLayout>
         <!--메인 레이아웃-->
+        <!--말풍선-->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="180dp"
+                      android:paddingHorizontal="20dp"
+                      android:paddingTop="15dp"
+                      android:layout_marginTop="10dp"
+                      android:background="@drawable/conversation"
+                      android:orientation="vertical"
+                      android:layout_below="@id/topPanel"
+                      android:id="@+id/conversationLayout">
 
-        <com.sothree.slidinguppanel.SlidingUpPanelLayout
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/topPanel"
-                xmlns:sothree="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/sliding_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                sothree:umanoPanelHeight="120dp"
-                android:layout_marginHorizontal="15dp"
-                sothree:umanoShadowHeight="0dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+
+                      android:textStyle="bold"
+                      android:textSize="20sp"
+                      android:textColor="@color/lime"
+                      android:text="오늘의 Tip" />
+
+        </LinearLayout>
 
             <!--상단 이미지 -->
             <ImageView
-                    android:paddingHorizontal="50dp"
-                    android:paddingVertical="75dp"
+                    android:layout_below="@id/conversationLayout"
+                    android:paddingBottom="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_above="@id/kcalLayout"
                     android:gravity="center"
                     android:src="@drawable/human_body"/>
 
-            <!--오늘의 팁 레이아웃-->
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+            <!--하단 칼로리 레이아웃-->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:id="@+id/kcalLayout"
+                          android:layout_marginHorizontal="15dp"
+                          android:layout_alignParentBottom="true"
                           android:orientation="vertical"
                           android:gravity="top"
                           android:background="@drawable/background_slide_panel">
 
-                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                           android:layout_marginTop="10dp"
-                           android:layout_gravity="center_horizontal"
-                           android:src="@drawable/icon_slider"/>
-
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:layout_margin="10dp"
-                          android:text="오늘의 Tip"
-                          android:textSize="18sp"
-                          android:textColor="@color/lime"/>
-
                 <!--짧은 문구-->
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/shortTV"
-                          android:layout_marginHorizontal="10dp"
-                          android:textSize="16sp"
-                          android:textColor="@color/white"
-                          android:text="오늘은 맛있는 걸 많이 드세요."/>
-
-                <!--긴 문구-->
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:visibility="gone"
-                          android:id="@+id/longTV"
-                          android:layout_marginHorizontal="10dp"
-                          android:textSize="16sp"
-                          android:textColor="@color/white"
-                          android:text="오늘을 맛있는 걸 많이 드세요.\n맛있는 걸 많이 먹으면 기부니가 좋아져요.\n건강따위는 개나 줍시다."/>
+                          android:textStyle="bold"
+                          android:layout_margin="15dp"
+                          android:textSize="18sp"
+                          android:textColor="@color/lime"
+                          android:text="오늘은 100 칼로리 만큼 드셨네요\n대신 1000보를 걸어 300칼로리를 소모했어요"/>
             </LinearLayout>
-        </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
     </RelativeLayout>
 
     <!--슬라이드 메뉴-->
@@ -127,7 +118,7 @@
                        android:src="@drawable/health"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:layout_marginLeft="15dp"
-                      android:text="신체정보"
+                      android:text="신체정보 수정"
                       android:textSize="18sp"
                       android:textColor="@color/black"/>
         </LinearLayout>
@@ -142,7 +133,7 @@
                        android:src="@drawable/diagram"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:layout_marginLeft="15dp"
-                      android:text="변화 그래프"
+                      android:text="나의 상태"
                       android:textSize="18sp"
                       android:textColor="@color/black"/>
         </LinearLayout>
@@ -157,7 +148,7 @@
                        android:src="@drawable/sandwich"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:layout_marginLeft="15dp"
-                      android:text="오늘의 식사"
+                      android:text="건강기능 식품 검색"
                       android:textSize="18sp"
                       android:textColor="@color/black"/>
         </LinearLayout>

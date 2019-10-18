@@ -8,10 +8,12 @@
         tools:context=".InformationActivity">
 
     <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:paddingHorizontal="50dp">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="50dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
                       android:orientation="vertical">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:paddingHorizontal="50dp">
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:text="신체정보 입력"
                       android:id="@+id/titleTv"
@@ -76,16 +78,129 @@
                       android:textColor="@color/white"
                       android:textColorHint="@color/hint_color"
                       android:hint="병력이 있으시면 입력하세요"/>
+
+            <!--신체활동 지수-->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:layout_marginTop="20dp"
+                      android:textSize="20sp"
+                      android:paddingVertical="5dp"
+                      android:textColor="@color/white"
+                      android:text="신체활동은 얼마나\n하신다고 생각하시나요?" />
+
+            <SeekBar
+                    android:layout_marginTop="5dp"
+                    android:layout_marginHorizontal="-10dp"
+                    android:progressDrawable="@drawable/seekbar_style"
+                    android:thumb="@drawable/seek_thumb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="3"
+                    android:progress="2"
+                    android:id="@+id/activitySb"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="5dp"
+                          android:orientation="horizontal" >
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:textColor="@color/white"
+                          android:gravity="center"
+                          android:text="비활동적"
+                          android:layout_weight="1"
+                          android:textSize="16sp" />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:textColor="@color/white"
+                          android:gravity="center"
+                          android:text="저활동적"
+                          android:layout_weight="1"
+                          android:textSize="16sp" />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:textColor="@color/white"
+                          android:gravity="center"
+                          android:text="활동적"
+                          android:layout_weight="1"
+                          android:textSize="16sp" />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:textColor="@color/white"
+                          android:gravity="center"
+                          android:text="매우 활동적"
+                          android:layout_weight="1"
+                          android:textSize="16sp" />
+            </LinearLayout>
+
+            <!--식사시간 선택-->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:layout_marginTop="20dp"
+                      android:textSize="20sp"
+                      android:paddingVertical="5dp"
+                      android:textColor="@color/white"
+                      android:text="식사는 언제 하시나요?" />
+
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:background="@drawable/meal_background"
+                          android:padding="10dp"
+                          android:orientation="vertical">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:textSize="18sp"
+                              android:textColor="@color/white"
+                              android:text="아침식사" />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/setBtimeTv"
+                              android:textColor="@color/lime"
+                              android:layout_marginLeft="20dp"
+                              android:textSize="18sp"
+                              android:text="선택" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:layout_marginTop="10dp"
+                              android:orientation="horizontal">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:textSize="18sp"
+                              android:textColor="@color/white"
+                              android:text="점심식사" />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/setLtimeTv"
+                              android:textColor="@color/lime"
+                              android:layout_marginLeft="20dp"
+                              android:textSize="18sp"
+                              android:text="선택" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:layout_marginTop="10dp"
+                              android:orientation="horizontal">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:textSize="18sp"
+                              android:textColor="@color/white"
+                              android:text="저녁식사" />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/setDtimeTv"
+                              android:textColor="@color/lime"
+                              android:layout_marginLeft="20dp"
+                              android:textSize="18sp"
+                              android:text="선택" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+            <!--확인 버튼-->
+            <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/confirmBtn"
+                    android:paddingVertical="15dp"
+                    android:text="확인"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:background="#18000000"></Button>
         </LinearLayout>
     </ScrollView>
 
-    <!--확인 버튼-->
-    <Button android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:id="@+id/confirmBtn"
-            android:paddingVertical="15dp"
-            android:layout_alignParentBottom="true"
-            android:text="확인"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:background="#18000000"></Button>
+
+
 </RelativeLayout>
