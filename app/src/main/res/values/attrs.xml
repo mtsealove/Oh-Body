@@ -4,4 +4,6 @@
     </declare-styleable>
     <declare-styleable name="FoodSelectView">
     </declare-styleable>
+    <declare-styleable name="HealthFoodView">
+    </declare-styleable>
 </resources>

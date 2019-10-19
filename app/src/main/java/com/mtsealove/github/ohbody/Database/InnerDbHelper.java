@@ -13,8 +13,7 @@ import androidx.annotation.RequiresApi;
 
 import java.io.*;
 
-import static android.provider.ContactsContract.Directory.PACKAGE_NAME;
-
+//Asset에서 사용할 DB 클래스
 public class InnerDbHelper extends SQLiteOpenHelper {
 
     public InnerDbHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
@@ -44,15 +43,15 @@ public class InnerDbHelper extends SQLiteOpenHelper {
     }
 
     public void setDB(Context ctx) {
-        File folder = new File("/data/data/"+ctx.getPackageName()+"/databases/");
-        if(folder.exists()) {
+        File folder = new File("/data/data/" + ctx.getPackageName() + "/databases/");
+        if (folder.exists()) {
             Log.e("sqlite", "파일 있음");
         } else {
             Log.e("sqlite", "파일 생성");
             folder.mkdirs();
         }
         AssetManager assetManager = ctx.getResources().getAssets();
-        File outfile = new File("/data/data/"+ctx.getPackageName()+"/databases/food_search.db");
+        File outfile = new File("/data/data/" + ctx.getPackageName() + "/databases/food_search.db");
         InputStream is = null;
         FileOutputStream fo = null;
         long filesize = 0;
@@ -68,7 +67,8 @@ public class InnerDbHelper extends SQLiteOpenHelper {
                 fo.write(tempdata);
                 fo.close();
                 Log.e("sqlite", "파일 복사");
-            } else {}
+            } else {
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

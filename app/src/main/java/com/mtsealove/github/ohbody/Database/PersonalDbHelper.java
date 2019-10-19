@@ -9,7 +9,7 @@ import android.os.Build;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
 
-
+//개인정보 관련 DB 클래스
 public class PersonalDbHelper extends SQLiteOpenHelper {
     public static final String BodyTable="Body", MealTable="Meal", WalkTable="Walk";
 
@@ -133,13 +133,13 @@ public class PersonalDbHelper extends SQLiteOpenHelper {
     }
 
     //식사 데이터 추가
-    public void InsertMealData(SQLiteDatabase db, String date, int meal, String food, int serving_wt, int food_cd) {
+    public void InsertMealData(SQLiteDatabase db, String date, int meal, String food, int serving_wt, String food_cd) {
         String query="insert into "+MealTable +" values(" +
                 "'"+date+"', "+
                 meal+", "+
                 "'"+food+"', "+
                 serving_wt+", "+
-                food_cd+")";
+                "'"+food_cd+"')";
         db.beginTransaction();
         try {
             db.execSQL(query);

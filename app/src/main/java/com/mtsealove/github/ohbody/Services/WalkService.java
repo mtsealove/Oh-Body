@@ -100,7 +100,7 @@ public class WalkService extends Service {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.mipmap.ic_launcher)//drawable.splash)
+                        .setSmallIcon(R.drawable.oh_body_icon)//drawable.splash)
                         .setContentTitle("Service test")
                         .setContentText(messageBody)
                         .setAutoCancel(true)
@@ -123,8 +123,6 @@ public class WalkService extends Service {
     private class SensorRun implements Runnable {
         SensorManager sm;
         SensorEventListener accL;
-        SensorEventListener oriL;
-        Sensor oriSensor;
         Sensor accSensor;
         private long lastTime;
         private float speed;
@@ -136,14 +134,11 @@ public class WalkService extends Service {
 
         public SensorRun() {
             sm = (SensorManager) getSystemService(SENSOR_SERVICE);    // SensorManager 인스턴스를 가져옴
-            oriSensor = sm.getDefaultSensor(Sensor.TYPE_ORIENTATION);    // 방향 센서
             accSensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-            oriL = new oriListener();        // 방향 센서 리스너 인스턴스
             accL = new accListener();
 
             sm.registerListener(accL, accSensor, SensorManager.SENSOR_DELAY_NORMAL);    // 가속도 센서 리스너 오브젝트를 등록
-            sm.registerListener(oriL, oriSensor, SensorManager.SENSOR_DELAY_NORMAL);    // 방향 센서 리스너 오브젝트를 등록
         }
 
         private class accListener implements SensorEventListener {
@@ -166,7 +161,6 @@ public class WalkService extends Service {
                         count++;
                         str = String.format("%d", count);
                         Log.e("걸음", str);
-                        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
                         DateF dateF = new DateF();
                         database = dbHelper.getReadableDatabase();
                         String query = "select WalkCount from " + PersonalDbHelper.WalkTable + " where Date='" + dateF.getDate() + "'";
@@ -180,7 +174,6 @@ public class WalkService extends Service {
                             Log.e("쿼리", "데이터 생성");
                             dbHelper.CreateWalkData(database);
                         }
-                        if (count % 10 == 0) sendNotification("test");
                     }
 
                     lastX = event.values[0];
@@ -194,26 +187,9 @@ public class WalkService extends Service {
             }
         }
 
-        private class oriListener implements SensorEventListener {
-            public void onSensorChanged(SensorEvent event) {  // 방향 센서 값이 바뀔때마다 호출됨
-                /*
-                Log.i("SENSOR", "Orientation changed.");
-                Log.i("SENSOR", "  Orientation X: " + event.values[0]
-                        + ", Orientation Y: " + event.values[1]
-                         + ", Orientation Z: " + event.values[2]);
-                 */
-            }
-
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-            }
-        }
-
-
         @Override
         public void run() {
             sm.registerListener(accL, accSensor, SensorManager.SENSOR_DELAY_NORMAL);    // 가속도 센서 리스너 오브젝트를 등록
-            sm.registerListener(oriL, oriSensor, SensorManager.SENSOR_DELAY_NORMAL);    // 방향 센서 리스너 오브젝트를 등록
         }
     }
 }

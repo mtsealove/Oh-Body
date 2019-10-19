@@ -81,7 +81,7 @@ public class SearchFoodActivity extends AppCompatActivity {
     private void Suggest(CharSequence nameCS) {
         final ArrayList<String> foodList = new ArrayList<>();
         final ArrayList<Integer> servingList = new ArrayList<>();
-        final ArrayList<Integer> food_cdList=new ArrayList<>();
+        final ArrayList<String> food_cdList=new ArrayList<>();
         String name = nameCS.toString();
         String query = "select desc_kor, food_cd, serving_wt from data where desc_kor like '" + name + "%'";
         //중복 제거
@@ -91,7 +91,7 @@ public class SearchFoodActivity extends AppCompatActivity {
         cursor = database.rawQuery(query, null);
         while (cursor.moveToNext()) {
             foodList.add(cursor.getString(0));
-            food_cdList.add(cursor.getInt(1));
+            food_cdList.add(cursor.getString(1));
             servingList.add(cursor.getInt(2));
         }
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, foodList);
@@ -168,7 +168,7 @@ public class SearchFoodActivity extends AppCompatActivity {
         if(cursor!=null) {
             if(cursor.getCount()!=0){
                 while(cursor.moveToNext()){
-                       FoodSelectView foodSelectView=new FoodSelectView(this, cursor.getString(0), cursor.getInt(1), cursor.getInt(2));
+                       FoodSelectView foodSelectView=new FoodSelectView(this, cursor.getString(0), cursor.getInt(1), cursor.getString(2));
                        foodSelectViews.add(foodSelectView);
                        foodsLayout.addView(foodSelectView);
                 }

@@ -16,11 +16,11 @@ public class FoodSelectView extends RelativeLayout {
     TextView foodTv, countTv;
     ImageView lower, higher, remove;
     int amount = 1, amountT = 1;
-    String amountType="g";
+    String amountType = "g";
     String foodName;
-    int food_cd, serving_wt;
+    String food_cd;
 
-    public FoodSelectView(Context context, String name, int amount,  int food_cd) {
+    public FoodSelectView(Context context, String name, int amount, String food_cd) {
         super(context);
         init(context);
         this.amountType = amountType;
@@ -28,7 +28,7 @@ public class FoodSelectView extends RelativeLayout {
         foodName = name;
         foodTv.setText(name);
         countTv.setText(amount + amountType);
-        this.food_cd=food_cd;
+        this.food_cd = food_cd;
     }
 
     public FoodSelectView(Context context) {
@@ -129,11 +129,7 @@ public class FoodSelectView extends RelativeLayout {
         this.foodName = foodName;
     }
 
-    public int getFood_cd() {
+    public String getFood_cd() {
         return food_cd;
-    }
-
-    public void setFood_cd(int food_cd) {
-        this.food_cd = food_cd;
     }
 }

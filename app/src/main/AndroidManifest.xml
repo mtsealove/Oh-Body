@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.mtsealove.github.ohbody">
 
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:allowBackup="true"
@@ -14,6 +14,10 @@
             android:roundIcon="@drawable/oh_body_icon"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".HealthFoodDetailActivity">
+        </activity>
+        <activity android:name=".SearchHealthFoodActivity">
+        </activity>
         <activity android:name=".GraphActivity">
         </activity>
         <activity android:name=".SearchFoodActivity">
@@ -31,20 +35,24 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <service android:name=".Services.WalkService"
-                 android:enabled="true"
-                 android:exported="true"/>
-        <service android:name=".Services.RestartService"
-                 android:exported="true"
-                 android:enabled="true" />
 
-        <receiver android:name=".Services.AlarmRecever" />
-        <receiver android:name=".Services.RebootRecever"
-                  android:enabled="true"
-                  android:exported="false"
-                  android:process=":remote">
+        <service
+                android:name=".Services.WalkService"
+                android:enabled="true"
+                android:exported="true"/>
+        <service
+                android:name=".Services.RestartService"
+                android:enabled="true"
+                android:exported="true"/>
+
+        <receiver android:name=".Services.AlarmRecever"/>
+        <receiver
+                android:name=".Services.RebootRecever"
+                android:enabled="true"
+                android:exported="false"
+                android:process=":remote">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
     </application>

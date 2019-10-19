@@ -1,5 +1,6 @@
 package com.mtsealove.github.ohbody;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,12 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import com.mtsealove.github.ohbody.Database.DateF;
-import com.mtsealove.github.ohbody.Database.InnerDbHelper;
-import com.mtsealove.github.ohbody.Database.PersonalDbHelper;
-
+import com.mtsealove.github.ohbody.Database.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 public class MainActivity extends AppCompatActivity {
     Button menuBtn, mealBtn;
@@ -60,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         mealLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MealActivity.class);
+                Intent intent = new Intent(MainActivity.this, SearchHealthFoodActivity.class);
                 startActivity(intent);
                 CloseDrawer();
             }
@@ -207,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
     //오늘 먹은 칼로리 반환
     private double GetKCal() {
         //식품 코드리스트
-        ArrayList<Integer> foodCds = new ArrayList<>();
+        ArrayList<String> foodCds = new ArrayList<>();
         DateF dateF = new DateF();
         dbHelper = new PersonalDbHelper(this, PersonalDbHelper.MealTable, null, 1);
         database = dbHelper.getReadableDatabase();
@@ -218,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
         if (cursor != null) {
             if (cursor.getCount() != 0) {
                 while (cursor.moveToNext()) {
-                    foodCds.add(cursor.getInt(0));
+                    foodCds.add(cursor.getString(0));
                 }
             }
         }
@@ -227,10 +224,10 @@ public class MainActivity extends AppCompatActivity {
 
         InnerDbHelper innerDbHelper=new InnerDbHelper(this, "food_search.db", null, 1);
         database=innerDbHelper.getReadableDatabase();
-        for(Integer food_cd:foodCds) {
+        for(String food_cd:foodCds) {
 
             Log.e("food_cd", String.valueOf(food_cd));
-            String kcalQuery="select kcal from data where food_cd="+food_cd;
+            String kcalQuery="select kcal from data where food_cd='"+food_cd+"'";
             cursor=database.rawQuery(kcalQuery, null);
             if(cursor!=null)  {
                 if(cursor.getCount()!=0) {
@@ -249,4 +246,5 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         shortTV.setText("오늘은 " + GetWalkCount() + "걸음을 걸었네요\n필요 에너지량은 " + GetEER() + "kcal 이예요\n칼로리는 "+GetKCal()+"kcal 섭취했어요");
     }
+
 }
