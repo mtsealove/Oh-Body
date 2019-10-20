@@ -26,7 +26,7 @@
         </RelativeLayout>
         <!--메인 레이아웃-->
         <!--말풍선-->
-        <LinearLayout android:layout_width="match_parent" android:layout_height="180dp"
+        <LinearLayout android:layout_width="match_parent" android:layout_height="200dp"
                       android:paddingHorizontal="20dp"
                       android:paddingTop="15dp"
                       android:layout_marginTop="10dp"
@@ -36,11 +36,16 @@
                       android:id="@+id/conversationLayout">
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-
                       android:textStyle="bold"
                       android:textSize="20sp"
                       android:textColor="@color/lime"
                       android:text="오늘의 Tip" />
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:text="팁 내용"
+                      android:textSize="18sp"
+                      android:textColor="@color/white"
+                      android:id="@+id/tipTv" />
 
         </LinearLayout>
 

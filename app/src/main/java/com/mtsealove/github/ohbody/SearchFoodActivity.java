@@ -168,7 +168,7 @@ public class SearchFoodActivity extends AppCompatActivity {
         if(cursor!=null) {
             if(cursor.getCount()!=0){
                 while(cursor.moveToNext()){
-                       FoodSelectView foodSelectView=new FoodSelectView(this, cursor.getString(0), cursor.getInt(1), cursor.getString(2));
+                       FoodSelectView foodSelectView=new FoodSelectView(this, cursor.getString(0).replace("\\,", " "), cursor.getInt(1), cursor.getString(2));
                        foodSelectViews.add(foodSelectView);
                        foodsLayout.addView(foodSelectView);
                 }

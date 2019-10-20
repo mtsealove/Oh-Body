@@ -103,7 +103,7 @@ public class SplashActivity extends AppCompatActivity {
             serviceIntent = new Intent(this, WalkService.class);
             startService(serviceIntent);
         } else {
-            Toast.makeText(getApplicationContext(), "already", Toast.LENGTH_LONG).show();
+            //서비스가 이미 실행중
         }
     }
 
