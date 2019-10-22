@@ -45,7 +45,7 @@ public class InnerDbHelper extends SQLiteOpenHelper {
     public void setDB(Context ctx) {
         File folder = new File("/data/data/" + ctx.getPackageName() + "/databases/");
         if (folder.exists()) {
-            Log.e("sqlite", "파일 있음");
+
         } else {
             Log.e("sqlite", "파일 생성");
             folder.mkdirs();

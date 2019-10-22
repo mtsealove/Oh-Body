@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_marginHorizontal="10dp"
+              android:id="@+id/background"
+              android:clickable="true"
               android:layout_marginVertical="5dp"
+              android:layout_marginHorizontal="10dp"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical"
@@ -14,12 +16,5 @@
               android:textSize="18sp"
               android:textColor="@color/white"
               android:textStyle="bold" />
-
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:id="@+id/effectTv"
-              android:textColor="@color/white"
-              android:textSize="16sp"
-              android:lines="2"
-              android:text="월경 전 변화에 의한 불편한 상태 개선에 도움을 줄 수 있음(생리활성기능 2등급)" />
 
 </LinearLayout>

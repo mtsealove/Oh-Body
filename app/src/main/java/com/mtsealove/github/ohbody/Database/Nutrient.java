@@ -12,9 +12,9 @@ public class Nutrient {
 
     //칼로리를 인자로 받아 영양소 설정
     public Nutrient(double Kcal) {
-        Protein = Kcal * 0.2;
-        Carbohydrate = Kcal * 0.6;
-        Fat = Kcal * 0.2;
+        Protein = Kcal * 0.2/4;
+        Carbohydrate = Kcal * 0.6/4;
+        Fat = Kcal * 0.2/9;
         Natrium = 2;
         Sugar = Kcal * 0.05;
         Trans = Kcal * 0.01;

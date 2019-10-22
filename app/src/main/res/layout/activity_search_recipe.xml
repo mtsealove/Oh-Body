@@ -9,7 +9,7 @@
         tools:context=".SearchHealthFoodActivity">
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:text="건강기능 식품 검색"
+              android:text="레시피 검색"
               android:textColor="@color/white"
               android:textStyle="bold"
               android:textSize="24sp"
@@ -39,7 +39,7 @@
                       android:layout_centerVertical="true"
                       android:background="#00000000"
                       android:textColor="@color/white"
-                      android:hint="기능또는 이름 검색"
+                      android:hint="메뉴를 검색하세요"
                       android:inputType="text"
                       android:imeOptions="actionSearch"
                       android:textColorHint="@color/hint_color_white"/>

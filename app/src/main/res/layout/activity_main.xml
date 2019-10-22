@@ -26,7 +26,7 @@
         </RelativeLayout>
         <!--메인 레이아웃-->
         <!--말풍선-->
-        <LinearLayout android:layout_width="match_parent" android:layout_height="200dp"
+        <LinearLayout android:layout_width="match_parent" android:layout_height="220dp"
                       android:paddingHorizontal="20dp"
                       android:paddingTop="15dp"
                       android:layout_marginTop="10dp"
@@ -90,7 +90,7 @@
         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:background="@drawable/reverse_background">
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:layout_marginTop="60dp"
+                          android:layout_marginTop="80dp"
                           android:layout_marginBottom="10dp"
                           android:layout_centerInParent="true"
                           android:gravity="center_vertical"
@@ -154,6 +154,21 @@
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:layout_marginLeft="15dp"
                       android:text="건강기능 식품 검색"
+                      android:textSize="18sp"
+                      android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:id="@+id/recipeLayout"
+                      android:layout_marginTop="30dp"
+                      android:gravity="center_vertical"
+                      android:paddingHorizontal="20dp"
+                      android:orientation="horizontal">
+            <ImageView android:layout_width="38dp" android:layout_height="38dp"
+                       android:src="@drawable/icon_recipe"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_marginLeft="15dp"
+                      android:text="레시피 검색"
                       android:textSize="18sp"
                       android:textColor="@color/black"/>
         </LinearLayout>

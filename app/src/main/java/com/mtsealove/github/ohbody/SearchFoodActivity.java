@@ -44,8 +44,8 @@ public class SearchFoodActivity extends AppCompatActivity {
         foodSelectViews = new ArrayList<>();
         innerDbHelper = new InnerDbHelper(this, "data", null, 1);
         database = innerDbHelper.getReadableDatabase();
-        Intent intent=getIntent();
-        Meal=intent.getIntExtra("Meal", MealView.RequestBreakfast);
+        Intent intent = getIntent();
+        Meal = intent.getIntExtra("Meal", MealView.RequestBreakfast);
         SearchEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -81,12 +81,12 @@ public class SearchFoodActivity extends AppCompatActivity {
     private void Suggest(CharSequence nameCS) {
         final ArrayList<String> foodList = new ArrayList<>();
         final ArrayList<Integer> servingList = new ArrayList<>();
-        final ArrayList<String> food_cdList=new ArrayList<>();
+        final ArrayList<String> food_cdList = new ArrayList<>();
         String name = nameCS.toString();
         String query = "select desc_kor, food_cd, serving_wt from data where desc_kor like '" + name + "%'";
         //중복 제거
-        for(FoodSelectView foodSelectView: foodSelectViews) {
-            query+=" and not desc_kor='"+foodSelectView.getFoodName()+"'";
+        for (FoodSelectView foodSelectView : foodSelectViews) {
+            query += " and not desc_kor='" + foodSelectView.getFoodName() + "'";
         }
         cursor = database.rawQuery(query, null);
         while (cursor.moveToNext()) {
@@ -107,11 +107,13 @@ public class SearchFoodActivity extends AppCompatActivity {
                 foodsLayout.addView(foodSelectView);
             }
         });
+        cursor.close();
+
     }
 
     //완료 버튼 클릭 시
     private void Done() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("완료")
                 .setMessage("저장하시겠습니까?")
                 .setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -122,57 +124,79 @@ public class SearchFoodActivity extends AppCompatActivity {
                 }).setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String result="";
-                for(FoodSelectView foodSelectView:foodSelectViews){
-                    result+=foodSelectView.getFoodName()+"\n";
+                String result = "";
+                for (FoodSelectView foodSelectView : foodSelectViews) {
+                    result += foodSelectView.getFoodName() + "\n";
                 }
                 //변경된 데이터가 없으면 종료
-                if(result.length()==0){
+                if (result.length() == 0) {
                     finish();
                     return;
                 }
-                result.substring(0, result.length()-3);
-                Intent intent=new Intent();
+                if(result.length()>2)
+                    result.substring(0, result.length() - 1);
+                Intent intent = new Intent();
                 intent.putExtra("foods", result);
                 setResult(RESULT_OK, intent);
                 InsertData();
                 finish();
             }
         });
-        AlertDialog dialog=builder.create();
+        AlertDialog dialog = builder.create();
         dialog.show();
     }
 
     //데이터베이스 삽입
     private void InsertData() {
-        PersonalDbHelper dbHelper=new PersonalDbHelper(this, PersonalDbHelper.MealTable, null, 1);
-        SQLiteDatabase database=dbHelper.getWritableDatabase();
-        DateF dateF=new DateF();
+        PersonalDbHelper dbHelper = new PersonalDbHelper(this, PersonalDbHelper.MealTable, null, 1);
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        DateF dateF = new DateF();
         //데이터를 모두 지우고
+
         dbHelper.CleanMeal(database, dateF.getDate(), Meal);
         //새 데이터를 다시 삽입
-        for(FoodSelectView foodSelectView:foodSelectViews) {
-            dbHelper.InsertMealData(database, dateF.getDate(), Meal, foodSelectView.getFoodName(), foodSelectView.getAmount(), foodSelectView.getFood_cd());
+        if(foodSelectViews.size()!=0) {
+            for (FoodSelectView foodSelectView : foodSelectViews) {
+                dbHelper.InsertMealData(database, dateF.getDate(), Meal, foodSelectView.getFoodName(), foodSelectView.getAmount(), foodSelectView.getFood_cd());
+            }
         }
+        dbHelper.close();
+        database.close();
     }
 
     //기존 생성된 데이터 추가
     private void ReadData() {
-        PersonalDbHelper dbHelper=new PersonalDbHelper(this, PersonalDbHelper.MealTable, null, 1);
-        SQLiteDatabase database=dbHelper.getReadableDatabase();
-        DateF dateF=new DateF();
-        String query="select desc_kor, serving_wt, food_cd from "+PersonalDbHelper.MealTable+
-                " where Date='"+dateF.getDate()+"' and "+
-                "Meal="+Meal;
-        Cursor cursor=database.rawQuery(query, null);
-        if(cursor!=null) {
-            if(cursor.getCount()!=0){
-                while(cursor.moveToNext()){
-                       FoodSelectView foodSelectView=new FoodSelectView(this, cursor.getString(0).replace("\\,", " "), cursor.getInt(1), cursor.getString(2));
-                       foodSelectViews.add(foodSelectView);
-                       foodsLayout.addView(foodSelectView);
+        PersonalDbHelper dbHelper = new PersonalDbHelper(this, PersonalDbHelper.MealTable, null, 1);
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        DateF dateF = new DateF();
+        String query = "select desc_kor, serving_wt, food_cd from " + PersonalDbHelper.MealTable +
+                " where Date='" + dateF.getDate() + "' and " +
+                "Meal=" + Meal;
+        Cursor cursor = database.rawQuery(query, null);
+        if (cursor != null) {
+            if (cursor.getCount() != 0) {
+                while (cursor.moveToNext()) {
+                    FoodSelectView foodSelectView = new FoodSelectView(this, cursor.getString(0).replace("\\,", " "), cursor.getInt(1), cursor.getString(2));
+                    foodSelectViews.add(foodSelectView);
+                    foodsLayout.addView(foodSelectView);
                 }
             }
+            cursor.close();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            innerDbHelper.close();
+            cursor.close();
+            database.close();
+            innerDbHelper = null;
+            database = null;
+            innerDbHelper = null;
+        } catch (Exception e) {
+
         }
     }
 }

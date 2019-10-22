@@ -12,17 +12,20 @@ public class HealthFood implements Serializable {
     String ADDR;    //주소
     String FNCLTY_CN;   //기능성 내용
     String DAY_INTK_CN; //1일 섭취량
+    String Date;
 
-    public HealthFood(String PRMS_DT, String BSSH_NM, String APLC_RAWMTRL_NM, String HF_FNCLTY_MTRAL_RCOGN_NO, String INDUTY_NM, String IFTKN_ATNT_MATR_CN, String ADDR, String FNCLTY_CN, String DAY_INTK_CN) {
-        this.PRMS_DT = PRMS_DT;
-        this.BSSH_NM = BSSH_NM;
-        this.APLC_RAWMTRL_NM = APLC_RAWMTRL_NM;
-        this.HF_FNCLTY_MTRAL_RCOGN_NO = HF_FNCLTY_MTRAL_RCOGN_NO;
-        this.INDUTY_NM = INDUTY_NM;
-        this.IFTKN_ATNT_MATR_CN = IFTKN_ATNT_MATR_CN;
-        this.ADDR = ADDR;
-        this.FNCLTY_CN = FNCLTY_CN;
-        this.DAY_INTK_CN = DAY_INTK_CN;
+    public HealthFood(String PRMS_DT, String BSSH_NM, String APLC_RAWMTRL_NM, String HF_FNCLTY_MTRAL_RCOGN_NO, String INDUTY_NM, String IFTKN_ATNT_MATR_CN, String ADDR, String FNCLTY_CN, String DAY_INTK_CN, String date) {
+        this.PRMS_DT = PRMS_DT.replace("'", "");
+        this.BSSH_NM = BSSH_NM.replace("'", "");
+        this.APLC_RAWMTRL_NM = APLC_RAWMTRL_NM.replace("'", "");
+        this.HF_FNCLTY_MTRAL_RCOGN_NO = HF_FNCLTY_MTRAL_RCOGN_NO.replace("'", "");
+        this.INDUTY_NM = INDUTY_NM.replace("'", "");
+        this.IFTKN_ATNT_MATR_CN = IFTKN_ATNT_MATR_CN.replace("'", "");
+        this.ADDR = ADDR.replace("'", "");
+        this.FNCLTY_CN = FNCLTY_CN.replace("'", "");
+        this.DAY_INTK_CN = DAY_INTK_CN.replace("'", "");
+        this.Date = date;
+
     }
 
     public HealthFood() {
@@ -94,6 +97,14 @@ public class HealthFood implements Serializable {
 
     public String getDAY_INTK_CN() {
         return DAY_INTK_CN;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
     }
 
     public void setDAY_INTK_CN(String DAY_INTK_CN) {
